@@ -17,19 +17,26 @@ public class DoublyLinkedList <T>{
     public void add(T data){
         Node newNode = new Node(data);
         newNode.next = head;
-        this.head = newNode;
-        newNode.prev = head;
-        this.tail = head;
+        if(head == null) {
+            head = newNode;
+            tail = newNode;
+        }else {
+            head.prev = newNode;
+            head = newNode;
+        }
     }
 
     public void addLast(T data){
         Node newNode = new Node(data);
-        Node currentNode = tail;
-        while(currentNode.next != null){
-            currentNode = currentNode.next;
+        newNode.prev = tail;
+        newNode.next = null;
+        if(tail == null){
+            head = newNode;
+            tail = newNode;
+        }else {
+            tail.next = newNode;
+            tail = newNode;
         }
-        currentNode.next = newNode;
-        newNode.prev = currentNode.prev;
     }
 
     public boolean contains(T data){
@@ -68,5 +75,16 @@ public class DoublyLinkedList <T>{
             currentNode = currentNode.next;
         }
         System.out.println("null");
+    }
+
+    public void displayReverse(){
+        Node lastNode = tail;
+        System.out.println("print in reverse");
+        while (lastNode != null){
+            System.out.print(lastNode.data + " -> ");
+            lastNode = lastNode.prev;
+        }
+        System.out.println("null");
+
     }
 }
