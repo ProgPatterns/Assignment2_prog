@@ -40,7 +40,7 @@ public class DoublyLinkedList <T>{
     }
 
     public boolean contains(T data){
-        Node currentNode = tail;
+        Node currentNode = head;
         while(currentNode != null){
             if(currentNode.data.equals(data)){
                 return true;
@@ -52,20 +52,24 @@ public class DoublyLinkedList <T>{
 
     public T remove(int index){
         if(index == 0){
-            Node currentNode = head;
+            T value = head.data;
             head = head.next;
-            head.prev = null;
-            return currentNode.data;
+            return value;
         }
 
-        Node currentNode = tail;
-        for(int i = 0; i<index-1; i++){
+        Node currentNode = head;
+        for (int i = 0; i < index - 1; i++) {
             currentNode = currentNode.next;
         }
-        currentNode.next = currentNode.next.next;
-        currentNode.prev = currentNode.prev.prev;
 
-        return currentNode.data;
+        T value = currentNode.next.data;
+        if(currentNode.next.next != null) {
+            currentNode.next.next.prev = currentNode;
+        }else{
+            tail = currentNode;
+        }
+        currentNode.next = currentNode.next.next;
+        return value;
     }
 
     public void display(){
