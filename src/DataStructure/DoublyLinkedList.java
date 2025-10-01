@@ -1,3 +1,5 @@
+package DataStructure;
+
 public class DoublyLinkedList <T>{
     Node head;
     Node tail;
@@ -16,11 +18,11 @@ public class DoublyLinkedList <T>{
 
     public void add(T data){
         Node newNode = new Node(data);
-        newNode.next = head;
         if(head == null) {
             head = newNode;
             tail = newNode;
         }else {
+            newNode.next = head;
             head.prev = newNode;
             head = newNode;
         }
@@ -28,12 +30,11 @@ public class DoublyLinkedList <T>{
 
     public void addLast(T data){
         Node newNode = new Node(data);
-        newNode.prev = tail;
-        newNode.next = null;
         if(tail == null){
             head = newNode;
             tail = newNode;
         }else {
+            newNode.prev = tail;
             tail.next = newNode;
             tail = newNode;
         }
@@ -54,6 +55,7 @@ public class DoublyLinkedList <T>{
         if(index == 0){
             T value = head.data;
             head = head.next;
+            head.prev = null;
             return value;
         }
 
@@ -79,16 +81,5 @@ public class DoublyLinkedList <T>{
             currentNode = currentNode.next;
         }
         System.out.println("null");
-    }
-
-    public void displayReverse(){
-        Node lastNode = tail;
-        System.out.println("print in reverse");
-        while (lastNode != null){
-            System.out.print(lastNode.data + " -> ");
-            lastNode = lastNode.prev;
-        }
-        System.out.println("null");
-
     }
 }
